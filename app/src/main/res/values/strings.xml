@@ -2,12 +2,11 @@
 <resources>
     <string name="app_name">Reporte Basura</string>
     <string name="ajustes">Ajustes</string>
-    <string name="sacar_foto">📷  Sacar foto</string>
+    <string name="sacar_foto">Sacar foto</string>
     <string name="todas">Todas</string>
     <string name="pendientes">Pendientes</string>
     <string name="enviadas">Enviadas</string>
     <string name="vacio">Todavía no hay fotos.\nTocá «Sacar foto» cuando veas basura fuera del contenedor.</string>
-    <string name="sin_numero">⚠ Configurá el número de WhatsApp destino (tocá acá)</string>
     <string name="enviar">Enviar</string>
     <string name="enviar_whatsapp">Enviar por WhatsApp</string>
     <string name="seleccionar_todas">Seleccionar todas</string>
@@ -27,5 +26,6 @@
     <string name="app_normal">WhatsApp</string>
     <string name="app_business">WhatsApp Business</string>
     <string name="guardar">Guardar</string>
+    <string name="nota_retencion">Las fotos se borran solas 2 días después de sacarlas (enviadas o pendientes), para no acumular fotos con ubicación en el teléfono.</string>
     <string name="nota_whatsapp">WhatsApp no tiene una forma oficial de mandar una foto directo a un número. La app abre WhatsApp con la foto y el texto e indica el número; en la mayoría de las versiones abre ese chat directamente. Si WhatsApp te muestra la lista de contactos, elegí el chat a mano (conviene tener el número agendado).</string>
 </resources>

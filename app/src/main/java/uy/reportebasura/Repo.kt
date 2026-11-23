@@ -23,6 +23,9 @@ class Reporte(
     /** Solo en memoria (no se guarda): mientras se espera el GPS después de sacar la foto. */
     var buscandoUbicacion = false
 
+    /** Momento en que la foto y su registro se borran solos ([Repo.RETENCION_MS] después de sacarla). */
+    fun venceEn(): Long = creado + Repo.RETENCION_MS
+
     fun tieneCoordenadas() = lat != null && lon != null
 
     fun coordenadas(): String? =
@@ -47,6 +50,13 @@ object Hilos {
  * miniaturas en files/miniaturas. Todo se modifica desde el hilo principal.
  */
 object Repo {
+    /**
+     * Las fotos se guardan 2 días desde que se sacaron y después se borran solas, estén enviadas
+     * o pendientes: un reporte de basura de hace más de 2 días ya no sirve (la recolección pasó o
+     * la situación cambió) y así el teléfono no acumula fotos con ubicación.
+     */
+    const val RETENCION_MS = 2 * 24 * 60 * 60 * 1000L
+
     private var lista: MutableList<Reporte>? = null
     private lateinit var archivo: AtomicFile
     lateinit var dirFotos: File
@@ -95,6 +105,25 @@ object Repo {
             mini(it).delete()
             Miniaturas.olvidar(it)
         }
+    }
+
+    /**
+     * Borra fotos y registros con más de 2 días. [excepto]: ids que se están usando ahora
+     * (p. ej. en la cola de envío). Devuelve cuántas se borraron.
+     */
+    fun limpiarViejas(excepto: Collection<String> = emptyList()): Int {
+        val ahora = System.currentTimeMillis()
+        val viejas = lista!!.filter { ahora >= it.venceEn() && it.id !in excepto }.map { it.id }
+        if (viejas.isNotEmpty()) borrar(viejas)
+        // Fotos sueltas sin registro (p. ej. una captura cancelada si la app se cerró) con más de 2 días.
+        val conRegistro = lista!!.mapTo(HashSet()) { it.id }
+        dirFotos.listFiles()?.forEach { f ->
+            val id = f.name.substringBefore('.')
+            if (id !in conRegistro && id !in excepto && ahora - f.lastModified() >= RETENCION_MS) {
+                f.delete(); mini(id).delete()
+            }
+        }
+        return viejas.size
     }
 
     private fun cargar(): MutableList<Reporte> {

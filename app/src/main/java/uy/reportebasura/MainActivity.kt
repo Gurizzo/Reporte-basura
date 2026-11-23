@@ -32,7 +32,6 @@ class MainActivity : Activity() {
 
     private lateinit var grilla: GridView
     private lateinit var vacio: TextView
-    private lateinit var aviso: TextView
     private lateinit var filtro: RadioGroup
     private val adaptador = Adaptador()
     private lateinit var ubicador: Ubicador
@@ -63,7 +62,7 @@ class MainActivity : Activity() {
 
         grilla = findViewById(R.id.grilla)
         vacio = findViewById(R.id.vacio)
-        aviso = findViewById(R.id.aviso)
+        setActionBar(findViewById(R.id.barra))
         filtro = findViewById(R.id.filtro)
 
         grilla.adapter = adaptador
@@ -72,13 +71,31 @@ class MainActivity : Activity() {
         }
         grilla.setMultiChoiceModeListener(Seleccion())
         filtro.setOnCheckedChangeListener { _, _ -> refrescar() }
-        aviso.setOnClickListener { startActivity(Intent(this, AjustesActivity::class.java)) }
         findViewById<View>(R.id.btn_foto).setOnClickListener { sacarFoto() }
+    }
+
+    /** Limpieza liviana: al volver a la app y cada hora mientras está abierta (sin WorkManager). */
+    private val limpieza = object : Runnable {
+        override fun run() {
+            val enUso = cola + listOfNotNull(capturaPendiente, esperandoGps)
+            val borradas = Repo.limpiarViejas(enUso)
+            if (borradas > 0) {
+                toast("Se borraron $borradas foto(s) de hace más de 2 días")
+                refrescar()
+            }
+            Hilos.principal.postDelayed(this, 60 * 60_000L)
+        }
+    }
+
+    override fun onPause() {
+        Hilos.principal.removeCallbacks(limpieza)
+        super.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        aviso.visibility = if (Ajustes.internacional(Ajustes.numero(this)) == null) View.VISIBLE else View.GONE
+        Hilos.principal.removeCallbacks(limpieza)
+        limpieza.run()
         refrescar()
         reintentarDirecciones()
     }
@@ -132,7 +149,11 @@ class MainActivity : Activity() {
         if (adaptador.items.isEmpty() && todos.isNotEmpty()) vacio.text = "No hay fotos con este filtro."
         else vacio.setText(R.string.vacio)
         val pendientes = todos.count { !it.enviado }
-        title = if (pendientes > 0) "${getString(R.string.app_name)} · $pendientes pendiente(s)" else getString(R.string.app_name)
+        actionBar?.subtitle = when {
+            todos.isEmpty() -> null
+            pendientes > 0 -> "$pendientes pendiente(s) de reportar"
+            else -> "Todo reportado"
+        }
     }
 
     private inner class Adaptador : BaseAdapter() {
@@ -146,7 +167,10 @@ class MainActivity : Activity() {
             val r = items[position]
             Miniaturas.mostrar(v.findViewById<ImageView>(R.id.img), r.id)
             Estado.pintar(v.findViewById(R.id.estado), r)
-            v.findViewById<TextView>(R.id.dir).text = if (r.buscandoUbicacion) "Buscando ubicación…" else r.lugar()
+            val lugar = if (r.buscandoUbicacion) "Buscando ubicación…" else r.lugar()
+            val horas = ((r.venceEn() - System.currentTimeMillis()) / 3_600_000L).coerceAtLeast(0)
+            v.findViewById<TextView>(R.id.dir).text =
+                if (horas < 12) "$lugar\nSe borra en ${if (horas < 1) "menos de 1 h" else "$horas h"}" else lugar
             return v
         }
     }
@@ -411,10 +435,15 @@ class MainActivity : Activity() {
     private fun toast(t: String) = Toast.makeText(this, t, Toast.LENGTH_LONG).show()
 }
 
-/** Etiqueta de estado con color: "Pendiente de reportar" (naranja) o "Enviado" (verde). */
+/** Etiqueta de estado tipo "chip": "Pendiente de reportar" (naranja) o "Enviado" (verde). */
 object Estado {
     fun pintar(tv: TextView, r: Reporte) {
-        tv.text = if (r.enviado) "Enviado" else "Pendiente de reportar"
-        tv.setBackgroundColor(tv.context.getColor(if (r.enviado) R.color.enviado else R.color.pendiente))
+        val c = tv.context
+        tv.text = if (r.enviado) "✓ Enviado" else "Pendiente de reportar"
+        tv.setTextColor(c.getColor(if (r.enviado) R.color.sobre_enviado_cont else R.color.sobre_pendiente_cont))
+        tv.background = android.graphics.drawable.GradientDrawable().apply {
+            cornerRadius = 8 * c.resources.displayMetrics.density
+            setColor(c.getColor(if (r.enviado) R.color.enviado_cont else R.color.pendiente_cont))
+        }
     }
 }

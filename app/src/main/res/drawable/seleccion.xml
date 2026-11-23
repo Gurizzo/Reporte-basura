@@ -2,8 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_activated="true">
         <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
             <solid android:color="@color/seleccion" />
-            <stroke android:width="4dp" android:color="@color/naranja" />
+            <stroke android:width="4dp" android:color="@color/primario" />
         </shape>
     </item>
     <item android:drawable="@android:color/transparent" />
