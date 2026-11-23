@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="aviso_fondo">#4A2A10</color>
-    <color name="aviso_texto">#FFD7B5</color>
-    <color name="celda_fondo">#33FFFFFF</color>
+    <color name="primario">#9DD67D</color>
+    <color name="sobre_primario">#0C3900</color>
+    <color name="primario_cont">#205107</color>
+    <color name="sobre_primario_cont">#B8F397</color>
+    <color name="secundario_cont">#3C4B34</color>
+    <color name="sobre_secundario_cont">#D9E7CB</color>
+    <color name="fondo">#11140F</color>
+    <color name="superficie">#11140F</color>
+    <color name="sobre_superficie">#E1E4D9</color>
+    <color name="sobre_superficie_var">#C3C8BB</color>
+    <color name="cont_bajo">#191D16</color>
+    <color name="cont">#1E211A</color>
+    <color name="cont_alto">#282B24</color>
+    <color name="contorno">#8D9286</color>
+    <color name="contorno_var">#43483E</color>
+    <color name="pendiente_cont">#7B2E0D</color>
+    <color name="sobre_pendiente_cont">#FFDBCB</color>
+    <color name="enviado_cont">#205107</color>
+    <color name="sobre_enviado_cont">#B8F397</color>
+    <color name="fab">#7B2E0D</color>
+    <color name="sobre_fab">#FFDBCB</color>
+    <color name="error">#FFB4AB</color>
+    <color name="resalte">#339DD67D</color>
+    <color name="seleccion">#509DD67D</color>
 </resources>

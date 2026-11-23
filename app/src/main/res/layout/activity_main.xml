@@ -1,86 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/aviso"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/aviso_fondo"
-        android:padding="12dp"
-        android:text="@string/sin_numero"
-        android:textColor="@color/aviso_texto"
-        android:visibility="gone" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <RadioGroup
-        android:id="@+id/filtro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp">
-
-        <RadioButton
-            android:id="@+id/f_todas"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/todas" />
-
-        <RadioButton
-            android:id="@+id/f_pendientes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/pendientes" />
-
-        <RadioButton
-            android:id="@+id/f_enviadas"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/enviadas" />
-    </RadioGroup>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <GridView
-            android:id="@+id/grilla"
+        <Toolbar
+            android:id="@+id/barra"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="multipleChoiceModal"
-            android:clipToPadding="false"
-            android:columnWidth="160dp"
-            android:horizontalSpacing="6dp"
-            android:numColumns="auto_fit"
-            android:padding="6dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="6dp" />
+            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/vacio"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="32dp"
-            android:text="@string/vacio"
-            android:textSize="16sp"
-            android:visibility="gone" />
-    </FrameLayout>
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <RadioGroup
+                android:id="@+id/filtro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp">
+
+                <RadioButton
+                    android:id="@+id/f_todas"
+                    style="@style/Chip"
+                    android:checked="true"
+                    android:text="@string/todas" />
+
+                <RadioButton
+                    android:id="@+id/f_pendientes"
+                    style="@style/Chip"
+                    android:text="@string/pendientes" />
+
+                <RadioButton
+                    android:id="@+id/f_enviadas"
+                    style="@style/Chip"
+                    android:text="@string/enviadas" />
+            </RadioGroup>
+        </HorizontalScrollView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <GridView
+                android:id="@+id/grilla"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:choiceMode="multipleChoiceModal"
+                android:clipToPadding="false"
+                android:columnWidth="160dp"
+                android:horizontalSpacing="10dp"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="auto_fit"
+                android:paddingStart="12dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="104dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp" />
+
+            <TextView
+                android:id="@+id/vacio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="80dp"
+                android:text="@string/vacio"
+                android:textColor="@color/sobre_superficie_var"
+                android:textSize="16sp"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_foto"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_margin="8dp"
-        android:backgroundTint="@color/naranja"
+        style="@style/Boton"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:background="@drawable/boton_fab"
+        android:drawableStart="@drawable/ic_camara"
+        android:drawablePadding="12dp"
+        android:elevation="6dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="24dp"
         android:text="@string/sacar_foto"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
-</LinearLayout>
+        android:textColor="@color/sobre_fab"
+        android:textSize="16sp" />
+</FrameLayout>

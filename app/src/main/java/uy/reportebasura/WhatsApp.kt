@@ -15,14 +15,19 @@ object Ajustes {
 
     private fun p(ctx: Context) = ctx.getSharedPreferences("ajustes", Context.MODE_PRIVATE)
 
-    fun numero(ctx: Context): String = p(ctx).getString("numero", "") ?: ""
+    /** Destino por defecto (+598 92 250 260), guardado ya normalizado. Se cambia en Ajustes. */
+    const val NUMERO_DEFECTO = "59892250260"
+
+    /** Si no hay un número guardado (o quedó vacío) se usa [NUMERO_DEFECTO]. */
+    fun numero(ctx: Context): String =
+        p(ctx).getString("numero", null)?.takeIf { it.isNotBlank() } ?: NUMERO_DEFECTO
     fun plantilla(ctx: Context): String = p(ctx).getString("plantilla", null)?.takeIf { it.isNotBlank() } ?: PLANTILLA_DEFECTO
     fun enlace(ctx: Context): Boolean = p(ctx).getBoolean("enlace", true)
     fun app(ctx: Context): String = p(ctx).getString("app", APP_AUTO) ?: APP_AUTO
 
     fun guardar(ctx: Context, numero: String, plantilla: String, enlace: Boolean, app: String) {
         p(ctx).edit()
-            .putString("numero", numero.trim())
+            .putString("numero", internacional(numero) ?: "")
             .putString("plantilla", plantilla.trim())
             .putBoolean("enlace", enlace)
             .putString("app", app)
@@ -44,6 +49,12 @@ object Ajustes {
             d.length == 8 && (d.startsWith("2") || d.startsWith("4")) -> d = "598$d" // fijo uruguayo
         }
         return if (d.length in 8..15) d else null
+    }
+
+    /** "59892250260" → "+598 92 250 260" (solo para mostrar). */
+    fun legible(n: String): String {
+        if (n.startsWith("598") && n.length == 11) return "+598 ${n.substring(3, 5)} ${n.substring(5, 8)} ${n.substring(8)}"
+        return "+$n"
     }
 
     fun mensaje(ctx: Context, r: Reporte): String {

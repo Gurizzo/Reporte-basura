@@ -2,7 +2,7 @@
 <uy.reportebasura.Cuadrado xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/celda_fondo"
+    android:background="@drawable/celda"
     android:foreground="@drawable/seleccion">
 
     <ImageView
@@ -17,24 +17,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
-        android:layout_margin="4dp"
-        android:paddingStart="6dp"
-        android:paddingTop="2dp"
-        android:paddingEnd="6dp"
-        android:paddingBottom="2dp"
-        android:textColor="#FFFFFF"
-        android:textSize="11sp"
-        android:textStyle="bold" />
+        android:layout_margin="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:paddingStart="8dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="3dp"
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/dir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/velo"
+        android:background="@drawable/velo"
         android:ellipsize="end"
         android:maxLines="2"
-        android:padding="4dp"
+        android:paddingStart="10dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="8dp"
         android:textColor="#FFFFFF"
         android:textSize="12sp" />
 </uy.reportebasura.Cuadrado>

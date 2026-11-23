@@ -37,8 +37,7 @@ class FotoActivity : Activity() {
         id = intent.getStringExtra("id") ?: return finish()
         if (Repo.get(id) == null) return finish()
         setContentView(R.layout.activity_foto)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "Foto"
+        Barra.conVolver(this, "Foto")
 
         dir = findViewById(R.id.dir)
         datos = findViewById(R.id.datos)
@@ -92,6 +91,7 @@ class FotoActivity : Activity() {
             lineas += "Coordenadas: $c" + (r.precision?.let { " (±${it.toInt()} m)" } ?: "")
         } ?: run { lineas += "Sin coordenadas GPS" }
         r.enviadoEn?.let { lineas += "Enviada el ${f.format(Date(it))}" }
+        lineas += "Se borra sola el ${f.format(Date(r.venceEn()))}"
         datos.text = lineas.joinToString("\n")
         btnEstado.text = if (r.enviado) "Marcar como pendiente" else "Marcar como enviada"
         btnRegeo.visibility = if (r.tieneCoordenadas()) View.VISIBLE else View.GONE

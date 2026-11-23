@@ -17,7 +17,7 @@ class AjustesActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ajustes)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        Barra.conVolver(this, getString(R.string.ajustes))
 
         val numero = findViewById<EditText>(R.id.numero)
         val final = findViewById<TextView>(R.id.numero_final)
@@ -25,7 +25,7 @@ class AjustesActivity : Activity() {
         val enlace = findViewById<CheckBox>(R.id.enlace)
         val app = findViewById<RadioGroup>(R.id.app)
 
-        numero.setText(Ajustes.numero(this))
+        numero.setText(Ajustes.legible(Ajustes.numero(this)))
         plantilla.setText(Ajustes.plantilla(this))
         enlace.isChecked = Ajustes.enlace(this)
         app.check(
@@ -41,9 +41,9 @@ class AjustesActivity : Activity() {
         fun actualizarFinal() {
             val n = Ajustes.internacional(numero.text.toString())
             final.text = when {
-                numero.text.isBlank() -> "Sin número configurado."
+                numero.text.isBlank() -> "Vacío: se usa el número por defecto ${Ajustes.legible(Ajustes.NUMERO_DEFECTO)}."
                 n == null -> "Número incompleto."
-                else -> "Se abrirá el chat con +$n"
+                else -> "Se abrirá el chat con ${Ajustes.legible(n)}"
             }
         }
         actualizarFinal()

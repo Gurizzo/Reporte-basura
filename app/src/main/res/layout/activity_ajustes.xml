@@ -1,102 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <Toolbar
+        android:id="@+id/barra"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/numero"
-            android:text="@string/numero_destino"
-            android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <EditText
-            android:id="@+id/numero"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="phone"
-            android:hint="@string/numero_hint"
-            android:inputType="phone" />
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="24dp">
 
-        <TextView
-            android:id="@+id/numero_final"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="13sp" />
+            <LinearLayout style="@style/Tarjeta">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:labelFor="@+id/plantilla"
-            android:text="@string/mensaje"
-            android:textStyle="bold" />
+                <TextView
+                    style="@style/Etiqueta"
+                    android:labelFor="@+id/numero"
+                    android:text="@string/numero_destino" />
 
-        <EditText
-            android:id="@+id/plantilla"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="textMultiLine|textCapSentences"
-            android:minLines="2" />
+                <EditText
+                    android:id="@+id/numero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="phone"
+                    android:hint="@string/numero_hint"
+                    android:inputType="phone" />
 
-        <CheckBox
-            android:id="@+id/enlace"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/agregar_enlace" />
+                <TextView
+                    android:id="@+id/numero_final"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/sobre_superficie_var"
+                    android:textSize="13sp" />
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/app_whatsapp"
-            android:textStyle="bold" />
+            <LinearLayout style="@style/Tarjeta">
 
-        <RadioGroup
-            android:id="@+id/app"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <TextView
+                    style="@style/Etiqueta"
+                    android:labelFor="@+id/plantilla"
+                    android:text="@string/mensaje" />
 
-            <RadioButton
-                android:id="@+id/app_auto"
+                <EditText
+                    android:id="@+id/plantilla"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minLines="2" />
+
+                <CheckBox
+                    android:id="@+id/enlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/agregar_enlace"
+                    android:textColor="@color/sobre_superficie" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Tarjeta">
+
+                <TextView
+                    style="@style/Etiqueta"
+                    android:text="@string/app_whatsapp" />
+
+                <RadioGroup
+                    android:id="@+id/app"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/app_auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="44dp"
+                        android:text="@string/app_auto"
+                        android:textColor="@color/sobre_superficie" />
+
+                    <RadioButton
+                        android:id="@+id/app_normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="44dp"
+                        android:text="@string/app_normal"
+                        android:textColor="@color/sobre_superficie" />
+
+                    <RadioButton
+                        android:id="@+id/app_business"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="44dp"
+                        android:text="@string/app_business"
+                        android:textColor="@color/sobre_superficie" />
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/nota_whatsapp"
+                    android:textColor="@color/sobre_superficie_var"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_auto" />
+                android:layout_marginBottom="16dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:text="@string/nota_retencion"
+                android:textColor="@color/sobre_superficie_var"
+                android:textSize="13sp" />
 
-            <RadioButton
-                android:id="@+id/app_normal"
+            <Button
+                android:id="@+id/guardar"
+                style="@style/Boton.Lleno"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_normal" />
-
-            <RadioButton
-                android:id="@+id/app_business"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_business" />
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/nota_whatsapp"
-            android:textSize="13sp" />
-
-        <Button
-            android:id="@+id/guardar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/verde"
-            android:text="@string/guardar"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-</ScrollView>
+                android:layout_height="56dp"
+                android:text="@string/guardar" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="TemaBase" parent="android:Theme.Material">
-        <item name="android:colorPrimary">@color/verde</item>
-        <item name="android:colorPrimaryDark">@color/verde_oscuro</item>
-        <item name="android:colorAccent">@color/naranja</item>
+    <style name="TemaBase" parent="android:Theme.Material.NoActionBar">
+        <item name="android:colorPrimary">@color/primario</item>
+        <item name="android:colorPrimaryDark">@color/superficie</item>
+        <item name="android:colorAccent">@color/primario</item>
+        <item name="android:colorControlActivated">@color/primario</item>
+        <item name="android:colorControlHighlight">@color/resalte</item>
+        <item name="android:windowBackground">@color/fondo</item>
+        <item name="android:colorBackground">@color/fondo</item>
+        <item name="android:textColorPrimary">@color/sobre_superficie</item>
+        <item name="android:textColorSecondary">@color/sobre_superficie_var</item>
+        <item name="android:statusBarColor">@color/superficie</item>
+        <item name="android:navigationBarColor">@color/superficie</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:alertDialogTheme">@style/Dialogo</item>
+        <item name="android:buttonStyle">@style/Boton.Tonal</item>
+        <item name="android:editTextStyle">@style/Campo</item>
+        <item name="android:toolbarStyle">@style/Barra</item>
+        <item name="android:popupMenuStyle">@style/Menu</item>
+        <item name="android:actionModeBackground">@color/cont_alto</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+    <style name="Dialogo" parent="android:Theme.DeviceDefault.Dialog.Alert">
+        <item name="android:colorAccent">@color/primario</item>
     </style>
 </resources>
