@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/enviar_pendientes" android:title="@string/enviar_pendientes" android:showAsAction="never" />
+    <item android:id="@+id/ajustes" android:title="@string/ajustes" android:showAsAction="never" />
+</menu>

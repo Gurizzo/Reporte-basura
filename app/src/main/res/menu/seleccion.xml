@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/enviar" android:title="@string/enviar" android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/todas" android:title="@string/seleccionar_todas" android:showAsAction="never" />
+    <item android:id="@+id/marcar_enviadas" android:title="@string/marcar_enviadas" android:showAsAction="never" />
+    <item android:id="@+id/marcar_pendientes" android:title="@string/marcar_pendientes" android:showAsAction="never" />
+    <item android:id="@+id/borrar" android:title="@string/borrar" android:showAsAction="never" />
+</menu>

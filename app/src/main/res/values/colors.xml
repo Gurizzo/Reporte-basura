@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="verde">#2E7D32</color>
+    <color name="verde_oscuro">#1B5E20</color>
+    <color name="naranja">#E8743B</color>
+    <color name="pendiente">#D84315</color>
+    <color name="enviado">#2E7D32</color>
+    <color name="velo">#B3000000</color>
+    <color name="seleccion">#66E8743B</color>
+    <color name="aviso_fondo">#FFF3E0</color>
+    <color name="aviso_texto">#7A3B00</color>
+    <color name="celda_fondo">#22000000</color>
+</resources>

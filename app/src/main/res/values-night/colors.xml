@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="aviso_fondo">#4A2A10</color>
+    <color name="aviso_texto">#FFD7B5</color>
+    <color name="celda_fondo">#33FFFFFF</color>
+</resources>
