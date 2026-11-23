@@ -36,7 +36,7 @@ object Ajustes {
 
     /**
      * Número en formato internacional solo con dígitos (lo que espera WhatsApp), pensado para Uruguay:
-     * "098 828 017" → "59898828017"; "+54 9 11 ..." o "0054..." se respetan. Null si no parece válido.
+     * "099 123 456" → "59899123456"; "+54 9 11 ..." o "0054..." se respetan. Null si no parece válido.
      */
     fun internacional(numero: String): String? {
         val t = numero.trim()

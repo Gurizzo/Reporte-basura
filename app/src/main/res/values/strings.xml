@@ -18,7 +18,7 @@
     <string name="ver_mapa">Ver en el mapa</string>
     <string name="buscar_direccion">Buscar dirección de nuevo</string>
     <string name="numero_destino">Número de WhatsApp destino</string>
-    <string name="numero_hint">Ej.: 098 828 017 o +598 98 828 017</string>
+    <string name="numero_hint">Ej.: 099 123 456 o +598 99 123 456</string>
     <string name="mensaje">Mensaje (usá {direccion} donde va la dirección)</string>
     <string name="agregar_enlace">Agregar enlace al mapa (Google Maps) debajo del mensaje</string>
     <string name="app_whatsapp">App para enviar</string>

@@ -12,7 +12,7 @@ App Android mínima para reportar **basura fuera del contenedor**: sacás una fo
 - **Se guardan solo 2 días**: cada foto y su registro se borran solos 48 h después de sacarla, **estén enviadas o pendientes** (un reporte de hace más de 2 días ya no sirve y así el teléfono no acumula fotos con ubicación). La limpieza corre al abrir/volver a la app y cada hora mientras está abierta (sin WorkManager ni servicios en segundo plano). Nunca se borra una foto que se está enviando en ese momento. En la galería aparece «Se borra en X h» cuando faltan menos de 12 h, y en el detalle la fecha exacta.
 - **Envío múltiple**: mantené apretada una foto para seleccionar varias (o *Seleccionar todas*), tocá **Enviar**: se manda **una foto por mensaje**, cada una con su dirección, de la más vieja a la más nueva. Al volver de WhatsApp queda marcada como enviada y pregunta si seguir (con «No se envió» para deshacer). Menú ⋮ → *Enviar todas las pendientes*.
 - **Detalle** de cada foto: enviar, marcar enviada/pendiente, editar dirección, buscar la dirección de nuevo, ver en el mapa, borrar.
-- **Ajustes**: número destino, por defecto **+598 92 250 260** (se guarda normalizado como `59892250260`; si se deja vacío vuelve a ese). Acepta `098 828 017`, `98828017`, `+598 98 828 017`; los números uruguayos se pasan solos a +598), texto del mensaje con `{direccion}`, enlace a Google Maps opcional y elección entre WhatsApp / WhatsApp Business.
+- **Ajustes**: número destino, por defecto **+598 92 250 260** (se guarda normalizado como `59892250260`; si se deja vacío vuelve a ese). Acepta `099 123 456`, `99123456`, `+598 99 123 456`; los números uruguayos se pasan solos a +598), texto del mensaje con `{direccion}`, enlace a Google Maps opcional y elección entre WhatsApp / WhatsApp Business.
 
 ## Limitación de WhatsApp (importante)
 
@@ -44,14 +44,14 @@ Resultado: **APK release de ~59 KB** (v1.1; la v1.0 pesaba ~45 KB). Requisitos: 
 
 ### 1. Herramientas (gratis)
 
-- **JDK 17 o superior** (en esta PC ya está `C:\Program Files\Java\jdk-20`).
+- **JDK 17 o superior**.
 - **Android SDK** sin Android Studio (alcanza con las *command-line tools*):
   1. Bajá «Command line tools only» para Windows de <https://developer.android.com/studio#command-line-tools-only>.
   2. Descomprimí para que quede `C:\Users\<usuario>\AppData\Local\Android\Sdk\cmdline-tools\latest\bin\sdkmanager.bat`.
   3. En PowerShell:
 
 ```powershell
-$env:JAVA_HOME = "C:\Program Files\Java\jdk-20"
+$env:JAVA_HOME = "C:\Program Files\Java\jdk-17"
 ```
 
 ```powershell
@@ -70,7 +70,7 @@ $env:JAVA_HOME = "C:\Program Files\Java\jdk-20"
 ### 2. Generar la APK
 
 ```powershell
-$env:JAVA_HOME = "C:\Program Files\Java\jdk-20"
+$env:JAVA_HOME = "C:\Program Files\Java\jdk-17"
 ```
 
 ```powershell
