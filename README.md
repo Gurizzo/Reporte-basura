@@ -1,7 +1,21 @@
 # Reporte Basura
 
 App Android mínima para reportar **basura fuera del contenedor**: sacás una foto, la app guarda dónde la sacaste (dirección + coordenadas GPS) y la manda por WhatsApp a un número configurado, con el mensaje
-«Basura fuera del contenedor en _Cam. Servando Gómez 2280, Carrasco, Montevideo_».
+«Basura fuera del contenedor en _Calle Ejemplo 1234, Barrio, Montevideo_».
+
+## Demo
+
+**▶ [Descargar la demo (APK) y ver el Release](https://github.com/Gurizzo/Reporte-basura/releases/latest)**
+
+<p align="center"><img src="docs/demo.gif" alt="Demo: sacar una foto, ver la dirección y enviarla por WhatsApp (simulado)" width="300"></p>
+
+El GIF está grabado en un teléfono real con la **variante demo** («Basura Demo»), que se instala aparte de la app normal y simula todo lo sensible:
+
+- **Cámara simulada**: en lugar de abrir la cámara dibuja una vereda con un contenedor desbordado y la guarda como foto.
+- **Ubicación simulada**: la APK demo **no tiene ningún permiso** (tampoco el de ubicación); las direcciones y coordenadas son inventadas («Calle Ejemplo 1234, Barrio Demo»). «Ver en el mapa» no abre nada.
+- **WhatsApp simulado**: una pantalla parecida a un chat, con un número inventado (+598 99 000 000). No abre WhatsApp ni manda ningún mensaje.
+
+El resto (galería, filtros, selección múltiple, cola de envío, borrado a los 2 días) es el código real de la app.
 
 ## Qué hace
 
@@ -74,10 +88,11 @@ $env:JAVA_HOME = "C:\Program Files\Java\jdk-17"
 ```
 
 ```powershell
-.\gradlew.bat assembleRelease
+.\gradlew.bat assembleNormalRelease
 ```
 
-La APK queda en `app\build\outputs\apk\release\app-release.apk`.
+La APK queda en `app\build\outputs\apk\normal\release\app-normal-release.apk`.
+Para la variante demo: `.\gradlew.bat assembleDemoRelease` → `app\build\outputs\apk\demo\release\app-demo-release.apk` (paquete `uy.reportebasura.demo`, se instala al lado de la normal).
 La primera vez Gradle baja sus dependencias (unos minutos).
 
 **Firma**: si no existe `keystore.properties`, el release se firma con la llave de *debug* de la PC (sirve para instalar, no para Google Play). Para una llave propia:
@@ -93,7 +108,7 @@ y creá `keystore.properties` (no va a git) con `storeFile=reporte-basura.jks`, 
 - **Por cable**: activá *Opciones de desarrollador → Depuración USB*, conectá el teléfono y:
 
 ```powershell
-& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r app\build\outputs\apk\release\app-release.apk
+& "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe" install -r app\build\outputs\apk\normal\release\app-normal-release.apk
 ```
 
 - **Sin cable**: pasá el `.apk` al teléfono (Drive, WhatsApp a vos mismo, USB), abrilo y permití «Instalar apps desconocidas» para esa app.
@@ -117,11 +132,20 @@ app/src/main/java/uy/reportebasura/
   WhatsApp.kt        ajustes, armado del mensaje e intent de envío
   FotoProvider.kt    content:// para la cámara y WhatsApp
   Barra.kt, Cuadrado.kt  barra superior y celdas redondeadas
+app/src/normal/java/uy/reportebasura/
+  Simulacion.kt      no simula nada (R8 borra las llamadas)
+app/src/demo/
+  AndroidManifest.xml          quita los permisos de ubicación
+  java/uy/reportebasura/
+    Simulacion.kt              direcciones/coordenadas inventadas y número de prueba
+    CamaraDemoActivity.kt      cámara de mentira (escena dibujada)
+    WhatsAppDemoActivity.kt    chat de mentira, no envía nada
 ```
 
 Las fotos quedan en el almacenamiento privado de la app (no aparecen en la galería del teléfono), se borran solas a los 2 días y también si se desinstala la app.
 
 ## Versiones
 
+- **Demo** (la app no cambia de versión): variantes `normal` y `demo`; la demo simula cámara, ubicación y WhatsApp. GIF y APK demo en el Release `v1.1-demo`.
 - **1.1**: borrado automático a los 2 días, número destino por defecto +598 92 250 260, estilo Material 3 con modo oscuro, ícono nuevo (contenedor desbordado). Se instala encima de la 1.0 (misma firma, versionCode 2).
 - **1.0**: primera versión.

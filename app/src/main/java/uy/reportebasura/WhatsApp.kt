@@ -15,8 +15,8 @@ object Ajustes {
 
     private fun p(ctx: Context) = ctx.getSharedPreferences("ajustes", Context.MODE_PRIVATE)
 
-    /** Destino por defecto (+598 92 250 260), guardado ya normalizado. Se cambia en Ajustes. */
-    const val NUMERO_DEFECTO = "59892250260"
+    /** Destino por defecto (+598 92 250 260; en la demo, uno inventado), ya normalizado. Se cambia en Ajustes. */
+    const val NUMERO_DEFECTO = Simulacion.NUMERO_DEFECTO
 
     /** Si no hay un número guardado (o quedó vacío) se usa [NUMERO_DEFECTO]. */
     fun numero(ctx: Context): String =
@@ -100,6 +100,7 @@ object WhatsApp {
     /** Intent para mandar una foto con su mensaje. Sin WhatsApp instalado, abre el selector genérico. */
     fun intent(ctx: Context, r: Reporte): Intent {
         val uri = FotoProvider.uri(ctx, r.id)
+        Simulacion.whatsapp(ctx, uri, Ajustes.mensaje(ctx, r), Ajustes.numero(ctx))?.let { return it }
         val envio = Intent(Intent.ACTION_SEND).apply {
             type = "image/jpeg"
             putExtra(Intent.EXTRA_STREAM, uri)

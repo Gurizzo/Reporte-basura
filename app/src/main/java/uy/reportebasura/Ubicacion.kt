@@ -112,6 +112,7 @@ class Ubicador(ctx: Context) {
 object Direcciones {
     /** [cb] se llama en el hilo principal con la dirección, o null si no hay servicio o red. */
     fun buscar(ctx: Context, lat: Double, lon: Double, cb: (String?) -> Unit) {
+        Simulacion.direccion(lat, lon)?.let { d -> Hilos.principal.post { cb(d) }; return }
         if (!Geocoder.isPresent()) {
             Hilos.principal.post { cb(null) }; return
         }
@@ -140,7 +141,7 @@ object Direcciones {
         }
     }
 
-    /** Arma una dirección corta y legible: "Cam. Servando Gómez 2280, Carrasco, Montevideo". */
+    /** Arma una dirección corta y legible: "Calle Ejemplo 1234, Barrio, Ciudad". */
     fun formatear(a: Address?): String? {
         a ?: return null
         val partes = mutableListOf<String>()
