@@ -228,6 +228,7 @@ class MainActivity : Activity() {
     // ---------- Cámara + ubicación ----------
 
     private fun sacarFoto() {
+        if (Simulacion.ACTIVA) { abrirCamara(); return } // demo: sin permiso de ubicación
         val prefs = getSharedPreferences("estado", MODE_PRIVATE)
         val yaPedido = prefs.getBoolean("pidioUbicacion", false)
         if (!ubicador.tienePermiso() &&
@@ -264,7 +265,7 @@ class MainActivity : Activity() {
 
         val id = "R" + System.currentTimeMillis()
         val uri = FotoProvider.uri(this, id)
-        val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val i = (Simulacion.camara(this) ?: Intent(MediaStore.ACTION_IMAGE_CAPTURE))
             .putExtra(MediaStore.EXTRA_OUTPUT, uri)
             .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
         i.clipData = ClipData.newRawUri("foto", uri)
@@ -314,6 +315,7 @@ class MainActivity : Activity() {
 
     /** Asigna la ubicación a la foto: GPS si ya hay una buena; si no, espera hasta 25 s. */
     private fun ubicar(id: String, exif: Pair<Double, Double>?) {
+        Simulacion.ubicacion()?.let { (lat, lon) -> fijar(id, lat, lon, 5f); return }
         val actual = ubicador.mejor
         if (ubicador.esBuena(actual)) {
             fijar(id, actual!!.latitude, actual.longitude, if (actual.hasAccuracy()) actual.accuracy else null)

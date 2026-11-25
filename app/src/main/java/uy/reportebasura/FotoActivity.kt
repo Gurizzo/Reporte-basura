@@ -162,6 +162,9 @@ class FotoActivity : Activity() {
 
     private fun abrirMapa() {
         val r = Repo.get(id) ?: return
+        if (Simulacion.ACTIVA) {
+            Toast.makeText(this, "Demo: la ubicación es inventada, no se abre el mapa", Toast.LENGTH_LONG).show(); return
+        }
         val c = String.format(Locale.US, "%.6f,%.6f", r.lat, r.lon)
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("geo:$c?q=$c(Basura)")))

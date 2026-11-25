@@ -25,6 +25,20 @@ android {
         versionName = "1.1"
     }
 
+    // normal: la app de siempre. demo: cámara, ubicación y WhatsApp simulados (se instala aparte).
+    flavorDimensions += "modo"
+    productFlavors {
+        create("normal") {
+            dimension = "modo"
+            isDefault = true
+        }
+        create("demo") {
+            dimension = "modo"
+            applicationIdSuffix = ".demo"
+            versionNameSuffix = "-demo"
+        }
+    }
+
     signingConfigs {
         if (!firma.isEmpty) {
             create("propia") {
